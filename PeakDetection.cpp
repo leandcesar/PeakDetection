@@ -29,8 +29,8 @@
 using namespace std;
 const int DEFAULT_LAG = 32;
 const int DEFAULT_THRESHOLD = 2;
-const int DEFAULT_INFLUENCE = 0.5;
-const int DEFAULT_EPSILON = 0.01;
+const double DEFAULT_INFLUENCE = 0.5;
+const double DEFAULT_EPSILON = 0.01;
 
 PeakDetection::PeakDetection() {
   index = 0;
@@ -99,7 +99,7 @@ double PeakDetection::getFilt() {
   return avg[i];
 }
 
-double PeakDetection::getPeak() {
+int PeakDetection::getPeak() {
   return peak;
 }
 
