@@ -38,7 +38,7 @@ PeakDetection::PeakDetection() {
   threshold = DEFAULT_THRESHOLD;
   influence = DEFAULT_INFLUENCE;
   EPSILON = DEFAULT_EPSILON;
-  int peak = 0;
+  peak = 0;
 }
 
 PeakDetection::~PeakDetection() {
