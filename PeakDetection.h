@@ -38,7 +38,7 @@ class PeakDetection {
     void begin(int, int, double); //lag, threshold, influence
     void add(double);
     double getFilt();
-    double getPeak();
+    int getPeak();
 
   private:
     int index, lag, threshold, peak;
