@@ -1,8 +1,8 @@
 # PeakDetection
 
-PeakDetection is an Arduino library for real time peak detection in sensor data.
+**PeakDetection** is an Arduino library for real time peak detection in sensor data.
 
-[Leia em português](https://github.com/leandcesar/PeakDetection/blob/master/README-ptbr.md).
+[🇫🇷 Traduire](https://github.com/leandcesar/PeakDetection/blob/master/locale/README.fr.md) | [🇧🇷 Traduzir](https://github.com/leandcesar/PeakDetection/blob/master/locale/README.pt-BR.md)
 
 ## Algorithm
 
@@ -16,50 +16,15 @@ The algorithm takes 3 inputs:
 
 * `influence`: is the z-score at which the algorithm signals. This parameter determines the influence of signals on the algorithm's detection threshold. If put at 0, signals have no influence on the threshold, such that future signals are detected based on a threshold that is calculated with a mean and standard deviation that is not influenced by past signals. You should put the influence parameter somewhere between 0 and 1, depending on the extent to which signals can systematically influence the time-varying trend of the data.
 
-### Functions
+## Library
 
-- begin()
-- add()
-- getPeak()
-- getFilt()
+* `begin()`: initialize `PeakDetection` object and configuration for tweaking parameters. If no parameters have been set, the default remains. Parameters: `lag` (default=32), `threshold` (default=2), `influence` (default=0.5).
 
-#### begin()
+* `add()`: adds a new data point to algorithm, calculates the standard deviations and moving average.
 
-Initialize PeakDetection object and configuration for tweaking parameters. If no parameters have been set, the default remains.
+* `getPeak()`: returns peak status of the last data point added. {-1, 0, 1}, representing below, within or above standard deviation threshold, respectively.
 
-```C++
-peakdetection.begin(lag,threshold,influence);
-```
-
-Alternaly:
-
-```C++
-peakdetection.begin(); //lag=32, threshold=2, influence=0.5
-```
-
-#### add()
-
-Adds a new data point to algorithm, calculates the standard deviations and moving average.
-
-```
-peakdetection.add(datapoint);
-```
-
-#### getPeak()
-
-Returns peak status of the last data point added. {-1, 0, 1}, representing below, within or above standard deviation threshold, respectively.
-
-```
-double peak = peakdetection.getPeak();
-```
-
-#### getFilt()
-
-Returns last data point filtered by the moving average.
-
-```
-double filtered = peakdetection.getFilt();
-```
+* `getFilt()`: returns last data point filtered by the moving average.
 
 ## Installation
 
@@ -67,40 +32,36 @@ To use the library:
 
 1. Download the zip and uncompress the downloaded file.
 2. Copy the folder to the Arduino libraries folder (`C:/Users/username/Documents/Arduino/libraries`).
-3. Rename it to PeakDetection.
+3. Rename it to `PeakDetection`.
 
 ## Example
 
-### Code
-
 ```C++
-#include <PeakDetection.h> // import lib
+#include <PeakDetection.h>                       // import lib
 
-PeakDetection peakDetection; // create PeakDetection object
+PeakDetection peakDetection;                     // create PeakDetection object
 
 void setup() {
-  Serial.begin(9600); // set the data rate for the Serial communication
-  pinMode(A0, INPUT); // analog pin used to connect the sensor
-  peakDetection.begin(48, 3, 0.6); // sets the lag, threshold and influence
+  Serial.begin(9600);                            // set the data rate for the Serial communication
+  pinMode(A0, INPUT);                            // analog pin used to connect the sensor
+  peakDetection.begin(48, 3, 0.6);               // sets the lag, threshold and influence
 }
 
 void loop() {
-    double data = (double)analogRead(A0)/512-1; // reads the value of the sensor and converts to a range between -1 and 1
-    peakDetection.add(data); // adds a new data point
-    int peak = peakDetection.getPeak(); // returns 0, 1 or -1
-    double filtered = peakDetection.getFilt(); // moving average
-    Serial.print(data); // print data
+    double data = (double)analogRead(A0)/512-1;  // converts the sensor value to a range between -1 and 1
+    peakDetection.add(data);                     // adds a new data point
+    int peak = peakDetection.getPeak();          // 0, 1 or -1
+    double filtered = peakDetection.getFilt();   // moving average
+    Serial.print(data);                          // print data
     Serial.print(",");
-    Serial.print(peak); // print peak status
+    Serial.print(peak);                          // print peak status
     Serial.print(",");
-    Serial.println(filtered); // print moving average
+    Serial.println(filtered);                    // print moving average
 }
 ```
 
-### Output
-
-![Example output](https://github.com/leandcesar/PeakDetection/blob/master/examples/output.gif)
+![Example](https://github.com/leandcesar/PeakDetection/blob/master/docs/assets/example.gif)
 
 ## Acknowledgments
 
-* [StackOverFlow](https://stackoverflow.com/questions/22583391/peak-signal-detection-in-realtime-timeseries-data).
+* [StackOverFlow](https://stackoverflow.com/questions/22583391/peak-signal-detection-in-realtime-timeseries-data)
