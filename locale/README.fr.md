@@ -14,7 +14,7 @@ L'algorithme prend 3 entrées:
 
 * `threshold`: ce paramètre correspond au nombre d'écart-types par rapport à la moyenne mobile au-dessus duquel l'algorithme classera un nouveau point de données comme étant un signal. Ce paramètre doit être défini en fonction du nombre de signaux que vous attendez. Le seuil influence donc directement la sensibilité de l'algorithme et donc la fréquence à laquelle l'algorithme signale.
 
-`influence`: est le score-z auquel l'algorithme signale. Ce paramètre détermine l'influence des signaux sur le seuil de détection de l'algorithme. S'il est réglé à 0, les signaux n'ont aucune influence sur le seuil, de sorte que les signaux futurs sont détectés en fonction d'un seuil calculé avec une moyenne et un écart type qui ne sont pas influencés par les signaux passés. Vous devez placer le paramètre d'influence quelque part entre 0 et 1, en fonction de la mesure dans laquelle les signaux peuvent influencer systématiquement la tendance variant dans le temps des données.
+* `influence`: est le score-z auquel l'algorithme signale. Ce paramètre détermine l'influence des signaux sur le seuil de détection de l'algorithme. S'il est réglé à 0, les signaux n'ont aucune influence sur le seuil, de sorte que les signaux futurs sont détectés en fonction d'un seuil calculé avec une moyenne et un écart type qui ne sont pas influencés par les signaux passés. Vous devez placer le paramètre d'influence quelque part entre 0 et 1, en fonction de la mesure dans laquelle les signaux peuvent influencer systématiquement la tendance variant dans le temps des données.
 
 ## Bibliothèque
 
