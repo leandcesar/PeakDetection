@@ -72,7 +72,16 @@ void PeakDetection::begin(int lag, int threshold, double influence) {
   }
 }
 
-void PeakDetection::add(double newSample) {
+void PeakDetection::setEpsilon(double epsilon) {
+  this->EPSILON = epsilon;
+}
+
+double PeakDetection::getEpsilon() {
+  return(EPSILON);
+}
+
+//void PeakDetection::add(double newSample) {
+double PeakDetection::add(double newSample) {
   peak = 0;
   int i = index % lag; //current index
   int j = (index + 1) % lag; //next index
@@ -92,6 +101,7 @@ void PeakDetection::add(double newSample) {
   index++;
   if (index >= 16383) //2^14
     index = lag + j;
+  return(std[j]);
 }
 
 double PeakDetection::getFilt() {
@@ -123,7 +133,10 @@ double PeakDetection::getStd(int start, int len) {
   double powx1 = x1 * x1;
   double std = x2 - powx1;
   if (std > -EPSILON && std < EPSILON)
-    return 0.0;
+    if(std < 0.0)
+        return(-EPSILON);
+    else
+        return(EPSILON);
   else
     return sqrt(x2 - powx1);
 }
